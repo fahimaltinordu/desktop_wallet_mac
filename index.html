@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<title>Wrapped ILCOIN (WILC) dApp</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="style/bootstrap.min.css" rel="stylesheet">
+
+	<!-- Bootstrap Select -->
+	<link rel="stylesheet" href="style/bootstrap-select.min.css" />
+    
+	<!-- MAIN STYLES-->
+    <link rel="stylesheet" href="style/main.css">
+
+	<!-- FONTAWESOME STYLES-->
+	<link href="style/all.css" rel="stylesheet"> 
+	<!-- <script src="https://kit.fontawesome.com/a90a45c743.js" crossorigin="anonymous"></script> -->
+    
+	<!-- FONTAWESOME ANIMATED-->
+	<link rel="stylesheet" href="style/font-awesome-animation.min.css">
+	
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/bootstrap-select.min.js"></script>
+
+</head>
+
+
+<body>
+
+    <header>
+        <div class="container-md"></div>
+		<img draggable="false" src='images/wilc-wt.png' width='124px' height='35px' style="position:absolute; left: 5px; top: 23px">
+    </header>
+	
+    <div class="createwalletarea">
+		   <button class="foure button77" onclick="OpenMyEtherWallet();"><b><i class="fas fa-wallet faa-horizontal animated-hover fa-2x"></i><br>Create Wallet</b></button>
+	</div>
+	
+	
+    <div class="options text-center">
+          <div style="text-align: left;margin-bottom: 30px;">
+				<select class="selectpicker show-tick" data-style="btn-warning" data-show-subtext="true" id="providerselector" >
+					  <optgroup label="EtherscanProvider" >
+					  <option data-subtext="ropsten" value="etherscan" >Etherscan_1</option>
+					  <option data-subtext="ropsten" value="etherscan2" selected >Etherscan_2</option>
+					  <optgroup label="InfuraProvider" >
+					  <option data-subtext="ropsten" value="infura" >Infura_1</option>
+					  <option data-subtext="ropsten" value="infura2" >Infura_2</option>
+				</select>  	
+				<script type="text/javascript">$('#providerselector').selectpicker('render'); </script>
+			
+				
+		   </div>
+		   
+		   <h5 style=""><b class="shimmer">How would you like to access your wallet?</b></h5>
+		   <span class="label info">To avoid exceeding API limits, it is recommended to avoid always using the same provider. The default provider is Etherscan</span>
+	</div>
+	
+			
+	
+    <div id="kapat"  >
+	
+			
+
+        <button class="btn shadowbtn " id="UseKeystorebtn" onClick ="UseKeystore ();"><i class="fas fa-file-code faa-tada animated-hover fa-3x" ></i> <b style="vertical-align:super; padding-left:10px; font-size: 16px;" >Keystore JSON</b></button>
+		<button class="btn shadowbtn " id="UsePrivateKeybtn"  onclick="UsePrivateKey();"><i class="fas fa-key faa-tada animated-hover fa-3x"></i> <b style="vertical-align:super; padding-left:10px; font-size: 16px;" >Private Key</b></button>
+		<button class="btn shadowbtn " id="UseMnemonicbtn"  onclick="UseMnemonic();"><i class="fas fa-file-alt faa-tada animated-hover fa-3x" ></i> <b style="vertical-align:super; padding-left:10px; font-size: 16px;" >Mnemonic Phrase</b></button>
+		
+	</div>
+
+ 
+    <div id="addressArea" class="hidden">
+                            <i style="color:#05c0a5;float:left;font-size:1em" class="fas fa-wallet "></i> 
+							
+						<div id="indivaddres" >
+							
+							<span class="myaddress " >0x0000000000000000000000000000000000000000</span> <br>
+		                             
+							 <span id="copyicon" class="fa-stack"  onclick="CopyAddress();" style="color:#05c0a5">
+                               <i class="fa fa-square fa-stack-2x"></i>
+                               <i class="fas fa-copy fa-stack-1x fa-inverse" data-toggle="tooltip" data-placement="bottom" data-original-title="Copy Address"></i>
+                             </span>
+							 
+							 <span id="showicon" class="fa-stack" onclick="ShowPkey();" style="color:#05c0a5">
+                               <i class="fa fa-square fa-stack-2x"></i>
+                               <i class="fas fa-eye fa-stack-1x fa-inverse" data-toggle="tooltip" data-placement="bottom" title="Copy Private Key"></i>
+                             </span>   
+							 
+							 <a style="color:#05c0a5; outline: 0;" tabindex="0"  id="showqr" class="fa-stack"  data-toggle="popover" data-html="true" data-placement="bottom" data-trigger="focus" title="" data-content="" data-address="">
+								<i class="fa fa-square fa-stack-2x"></i>
+								<i class="fas fa-qrcode fa-stack-1x fa-inverse" data-toggle="tooltip" data-placement="bottom" title="Show QR Code"></i>
+							 </a>
+							 <div id="qrcode" style="display: none; width: auto; height: auto; margin: 0px auto; text-align: center; padding: 0px;"></div>
+							 
+							 
+							 <span id="closeaccount" class="fa-stack" onclick="CloseAcc();" style="color:#E9223A">
+                               <i class="fa fa-square fa-stack-2x"></i>
+                               <i class="fas fa-times-circle fa-stack-1x fa-inverse" data-toggle="tooltip" data-placement="bottom" title="Change Wallet"></i>
+                             </span>
+						</div>
+							               
+    </div>
+	
+	
+	<div id="tokensbalance" class=" align-middle hidden" >
+			<i style="color:#05c0a5;float:left;font-size:1em" class="fas fa-hand-holding-usd"></i> 
+            <div id="indivbalance">
+				<b id="ethbal"><img draggable="false" src="images/gif.gif" style="width:7%"> </b> <b >ETH</b> <hr>
+				<b id="storjbal"><img draggable="false" src="images/gif.gif" style="width:7%"> </b> <b>WILC</b>
+		     </div>   
+    </div>
+
+
+    <div id="walletActions" class="hidden">
+
+        <button type="button" class="foure button1" data-toggle="modal" data-target="#storjmodal" onclick="UpdateTokenFeeETH();"><i class="fa fa-paper-plane"></i>
+            <b>Send WILC</b>
+          </button> 
+        
+        <button type="button" class="foure button1" data-toggle="modal" data-target="#ethermodal" onclick="UpdateAvailableETH();"><i class="fa fa-paper-plane"></i>
+            <b>Send ETH</b>
+          </button>
+
+    </div>
+	
+	
+
+
+    <div class="walletInput">
+
+        <div id="keystoreupload" style="background-image: url('images/background.png'); background-repeat: no-repeat;" class="hidden">
+            <div style="color:white" class="form-group">
+                <label for="exampleInputEmail1" id="loading" >Keystore JSON File <i class="fas fa-question-circle" data-toggle="tooltip" data-placement="right" data-original-title="This file simply holds your encrypted private key within it, which is why you have to use your chosen password to unlock your wallet via this method. Enter the password used to encrypt the file when the wallet was created."></i></label>&nbsp;&nbsp;
+                <button class="foure button" id="openkeystorebtn" onclick="OpenKeystoreFile();">Open Keystore File</button>
+				<p class="test" id="testid"></p>
+				<!-- <p class="errorInfo text-info pull-right" id="keystoredetail">$asdasdad</p> -->
+            </div>
+            <div style="color:white" class="form-group">
+                <label for="walletpass">Wallet Password</label>
+                <!-- <input type="password" class="form-control" id="keystorewalletpass" placeholder="Ethereum Wallet Keystore Password" required> -->
+				<div class="input-group" id="show_hide_password" style="display:table">
+					  <input style="width:90%" type="password" class="form-control" id="keystorewalletpass" placeholder="Ethereum Wallet Keystore Password" required>
+					  <div style="font-size:19px" class="input-group-addon">
+						<a href=""><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+					  </div>
+				 </div>
+            </div>
+            <button type="submit" class="foure button" id="keystorebtn" onclick="UnlockWalletKeystore();" disabled>Open</button>&nbsp; 
+			<button class="foure button" onClick="backbutton();">Back</button>
+			<p class="errorInfo text-info pull-right" id="keystorejsonerror"></p>
+		</div>
+
+        <div id="privatekey" style="background-image: url('images/background.png'); background-repeat: no-repeat; " class="hidden">
+            <div style="color:white" class="form-group">
+                <label for="walletpass">Wallet Private Key <i class="fas fa-question-circle" data-toggle="tooltip" data-placement="right" data-original-title="Please be sure that you are carefully and accurately typing your private key. A single wrong character will open a different wallet than is yours. Be sure there is not a space at the beginning or end of your private key. For reference private key looks like afdfd9c3d2095ef696594f6cedcae59e72dcd697...."></i></label>
+                <!-- <input type="password" class="form-control" id="privatepass" placeholder="a6de9563d3db157ed9926a993559dc177be74a23fd88ff5776ff0505d21fed2b" required> -->
+				<div class="input-group" id="show_hide_password" style="display:table">
+					  <input style="width:90%" type="password" class="form-control" id="privatepass" placeholder="a6de9563d3db157ed9926a993559dc177be74a23fd88ff577" required>
+					  <div style="font-size:19px" class="input-group-addon">
+						<a href=""><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+					  </div>
+				 </div>
+            </div>
+            <button type="submit" class="foure button" onclick="OpenPrivateKey();">Open</button>&nbsp; 
+			<button class="foure button" onClick="backbutton();">Back</button>
+			<p class="errorInfo text-info pull-right" id="privatekeyerror"></p>
+		</div>
+		
+		<div id="mnemonicupload" style="background-image: url('images/background.png'); background-repeat: no-repeat; " class="hidden">
+            <div style="color:white" class="form-group">
+                <label for="walletpass">Mnemonic Phrase <i class="fas fa-question-circle" data-toggle="tooltip" data-placement="right" data-original-title="Mnemonic phrases are ordered lists of 12 - 24 words which bring you to specific and unique wallet addresses. 12-word Mnemonic Phrase Example: jealous expect hundred young unlock disagree major siren surge acoustic machine catalog. Separate words by spaces."></i></label>
+                <!-- <input type="password" class="form-control" id="mnemonicwords" placeholder="indoor dish desk flag debris..." required> -->
+				 <div class="input-group" id="show_hide_password" style="display:table">
+					  <input style="width:90%" type="password" class="form-control" id="mnemonicwords" placeholder="indoor dish desk flag debris..." required>
+					  <div style="font-size:19px" class="input-group-addon">
+						<a href=""><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+					  </div>
+				 </div>
+            </div>
+            <button type="submit" class="foure button" onclick="UnlockMnemonic();">Open</button>&nbsp; 
+			<button class="foure button" onClick="backbutton();">Back</button>
+			<p class="errorInfo text-info pull-right" id="mnemonicerror"></p>
+		</div>
+
+    </div>
+
+
+
+    <script language="javascript" type="text/javascript">
+        // You can also require other files to run in this process
+        require('./renderer.js')
+    </script>
+
+
+
+    <div class="modal fade come-from-modal right" data-backdrop="static" id="ethermodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="text-align:center;background-color: #2a363f;color: #fff; border-radius:0px;">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="clearInputField()"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel"><b>Send Ethereum</b></h4><br>
+					<img draggable="false" id="logosend" src="images/sendlogoeth.png" width="50" >
+                </div>
+				
+                <div class="modal-body">
+					<div>
+						<div class="modalcardbalance">
+							<span style="line-height: 30px;"><u class="ethspend">0.0</u> <b>ETH</b> Available <sub class="text-muted"> after gas fee</sub></span>
+						</div>	
+					</div>
+					
+                    <div class="form-group">
+					
+					    <div class="input-group">
+                            <span class="input-group-addon"><b>To Address</b></span>
+							<input style="text-align: center; margin-bottom: 20px;" type="text" id="send_ether_to" class="form-control" onkeyup="GetEthAddress();" aria-label="Amount (to the nearest dollar)" placeholder="0x0000000000000000000000000000000000000000">
+
+                        </div>
+					
+                    </div>
+
+                    <div class="form-group">
+						<div class="input-group">
+						    <span class="input-group-addon"><b>Amount to send [ETH]</b></span>
+                            <input style="margin-bottom: 20px;" type="number"  min="0" max="25000" step="0.00000001" id="send_ether_amount" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="0.0" onpaste="return false;" onkeypress="return isNumberKey(event,this);" onchange="CheckETHAvailable();" onkeyup="CheckETHAvailable();">  
+                        </div>
+                    </div>
+					
+					<div style="text-align: right;">
+                        <button type="button" style="width:214px;font-size: 13px;font-weight: 700;" class="btn btn-default">Gas Price: <input id="ethgasprice" type="number" value="21" style="width: 50px;" onchange="GetEthGas();" min="5" max="50"> gwei</button>
+                        <button type="button" style="width:190px;font-weight: 700;font-size: 13px;" class="btn btn-default">Fee: <input id="ethtxfee" type="text" value="0.00044100"  aria-describedby="gasethHelp" readonly style="width: 80px;"> ETH</button>
+						<small id="gasethHelp" class="form-text text-muted">Gas Limit: 21000</small>
+                    </div>
+					
+                </div>
+				
+				<div class="modal-footer" style="position: fixed;bottom: 0;width: 100%;">
+                    <button type="button" id="sendethbutton" class="btn btn-primary" onclick="SendEthereum();" disabled><b>Send Ethereum</b></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div class="modal fade come-from-modal right" data-backdrop="static" id="storjmodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="text-align:center; background-color: #2a363f; color: #fff;  border-radius:0px">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="clearInputField()"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel"><b>Send Wrapped ILCOIN</b></h4><br>
+					<img draggable="false" id="logosend" src="images/sendlogowilc.png" width="50" >
+                </div>
+				
+                <div class="modal-body">
+					<div >
+						<div class="modalcardbalance">
+							<span style="line-height: 30px;"><u class="storjspend">0.0</u> <b>WILC</b> Available </span>
+						</div>	
+						<div class="modalcardbalance">	
+							<span style="line-height: 30px;"><u class="ethavailable">0.0</u> <b>ETH</b> Available <sub class="text-muted"> after gas fee</sub> </span>
+						</div>	
+					</div>
+					
+					
+					<div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon"><b>To Address</b></span>
+							<input style="text-align: center; margin-bottom: 20px;" type="text" id="send_to_token" class="form-control" onkeyup="GetTokenAddress();" aria-label="Amount (to the nearest dollar)" placeholder="0x0000000000000000000000000000000000000000">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+						<div class="input-group">
+                            <span class="input-group-addon"><b>Amount to send [WILC]</b></span>
+							<input style="margin-bottom: 20px;" type="number" min="0" max="2500000000" step="0.00000001" id="send_amount_token" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="0.0" onpaste="return false;" onkeypress="return isNumberKey(event,this);" onchange="CheckTokenAvailable();" onkeyup="CheckTokenAvailable();">
+                        </div>
+                        
+                    </div>
+					
+					<div style="text-align: right;">
+                        <button type="button" style="width:214px;font-size: 13px;font-weight: 700;" class="btn btn-default">Gas Price: <input id="tokengasprice" type="number" value="21" style="width: 50px;" onchange="GetTokenGas();" min="5" max="50" > gwei</button>
+                        <button type="button" style="width:190px;font-weight: 700;font-size: 13px;" class="btn btn-default">Fee: <input id="tokentxfee" type="text" aria-describedby="gaswilcHelp" value="0.00136500" readonly style="width: 80px;"> ETH</button>
+						<small id="gaswilcHelp" class="form-text text-muted">Gas Limit: 65000</small>
+                    </div>
+                </div>
+                
+				<div class="modal-footer" style="position: fixed;bottom: 0;width: 100%;">
+                    <button type="button" id="sendtokenbutton" class="btn btn-primary" onclick="SendToken();" disabled><b>Send Wrapped ILCOIN</b></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+ 
+    <div class="modal fade"  id="aboutmodalerisim" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div style="margin-top: 8vh;" class="modal-dialog" role="document">
+            <div class="modal-content">
+                
+				<div class="modal-header">
+				    <button type="button" class="close" data-dismiss="modal" aria-label="Close" ><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel"><i class="fas fa-info-circle "></i><b>   Wrapped ILCOIN (WILC) dApp</b></h4>
+                </div>
+				
+                <div class="modal-body">
+				  <p>A simple Ethereum Wallet based on <b>Wrapped ILCOIN (WILC)</b> ERC20 Token. Send and receive ETH and WILC with ease and security. Ethereum wallets are decrypted and raw transactions are signed locally. Raw transactions are sent directly to etherScan.io & infura.io. This open source dApp is created for WILC community. Wallet Private Keys are kept on your local machine, everytime you want to use this wallet you must re-use the Keystore JSON or Private Key for your wallet. <br><br> This wallet is for the WILC community to make life 25% easier for us token holders. Make your WILC Token experience decentralized! None of your wallet information is sent to any server. Wallet keys are kept on your local machine. Every time you want to use this wallet, you must re-use the Keystore JSON, Mnemonic Phrase or Private Key for your wallet. This wallet uses ether-js javascript library  to decrypt wallets locally, also uses Infura & Etherscan providers for accessing transaction history and balances. Each time you open the wallet, you will need to reinput the Keystore JSON file with password or use the wallet's Private Key and Mnemonic Phrase. To remove confusion, this wallet will not allow you to create a new wallet. If you don't have Ethereum or WILC wallet yet, make one with a secure password at myetherwallet.com. This wallet will not save or move your wallets. Be sure to back up the Keystore JSON file!</p>
+                </div>
+				
+                <div class="modal-footer">
+				    <button class="btn btn-social" onclick="OpenGithubRepo();"><b><i class="fab fa-github fa-lg faa-tada animated"  style="color:white;"></i></b></button>
+					<button class="btn btn-social" onclick="OpenTelegram();"><b><i class="fab fa-telegram-plane fa-lg faa-tada animated"  style="color:white;"></i></b></button>
+					<button class="btn btn-social" onclick="OpenTwitter();"><b><i class="fab fa-twitter fa-lg faa-tada animated"  style="color:white;"></i></b></button>
+                    <!-- <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button> -->
+                </div>
+            </div>
+        </div>
+    </div>
+	
+	
+	<div class="modal fade" id="trxsentModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" style="margin-top: 10vh;" role="document">
+            <div class="modal-content">
+                
+				<div class="modal-header" style="margin:auto">
+                    <h4 class="modal-title" id="myModalLabel"><p style="color:white; font-size:14px; text-align:center; text-decoration: underline;" class="txidLink text-primary" onclick="OpenEtherScan('0x31b2c588cbf74bec84491eb4ec8423cd13742f7d90315693771b6699c042eba5')">0x31b2c588cbf74bec84491eb4ec8423cd13742f7d90315693771b6699c042eba5</p></h4>
+                </div>
+				
+                <div class="modal-body" style="text-align:center">
+				  <!-- <i class="fas fa-check-circle faa-flash animated fa-7x" style="color: #05c0a5; padding-bottom:15px;"></i> -->
+                  <img draggable="false" src="images/tenor.gif"  width="120">
+				  
+                    <p>From Address: <b id="txfromaddress">0x208e02303fe29be3698732e92ca32b88d80a2d36</b></p>
+                    <p>To Address: <b id="txtoaddress">0xa3ddc09b5e49d654a43e161cae3f865261cabd23</b></p>
+					<p>Coin: <b id="txtype">ETH</b></p>
+                    <p>Value: <b id="senttxamount">0.2545</b></p>
+                    <p>Gas fee: <b id="txgasfee">0.0015</b> ETH</p>
+
+					
+                <div class="modal-footer" style="text-align: center;">
+				    <button type="button" style="width:300px; height:50px;"class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>	
+	   
+
+	<div class="modal fade" id="txnerrorModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	  <div style="margin-top: 8vh;" class="modal-dialog" role="document">
+		<div class="modal-content" style="width: 400px; margin: auto;">
+		  
+		  <div class="modal-header" style="margin:auto">
+				<h4 class="modal-title" id="myModalLabel" style="color:white; font-size:14px; text-align:center;" ><b>Invalid Address</b></h4>
+		  </div>
+		  
+		  <div class="modal-body" style="text-align:center">
+				<i class="fas fa-times-circle faa-flash animated fa-7x" style="color: #E9223A; padding-bottom:10px;"></i> <br><br> If you tried to send WILC or ETH to an invalid address, your transaction will not be valid and will not be processed by the network. Hence no WILC or ETH will have moved. Try again with valid receiver address.
+		  </div>
+		  
+		   <div class="modal-footer" style="text-align: center;">
+				<button type="button" style="width:300px; height:50px;"class="btn btn-danger" data-dismiss="modal">Close</button>
+           </div>
+		  
+		</div>
+	  </div>
+	</div>
+
+
+	<div class="modal fade" id="interneterrorModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	  <div class="modal-dialog" role="document">
+		<div class="modal-content">
+		  <div class="modal-header">
+			<h4 class="modal-title" id="myModalLabel"><i class="fas fa-plug faa-flash animated"></i>   Disconnected from Ethereum network</h4>
+		  </div>
+		  <div class="modal-body text-center">
+			 You’ve lost your connection to the network, check your internet connection. This application is client that send and receive data in real-time and become unusable without an active Internet connection. 
+		  </div>
+		  <div class="modal-footer">
+			<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+		  </div>
+		</div>
+	  </div>
+	</div>
+
+  <!-- <div style="bottom:0"> -->
+	    <!-- <span class="portfolio">WILC: $<span id="portfolioStorj">0.00</span> <span class="miniprice" id="portStorjUSD">(0.00)</span> | ETH: $<span id="portfolioEth">0.00</span> <span class="miniprice" id="portEthUSD">(0.00)</span> | TOTAL: $<span id="portfolioTotal">0.00</span></span> -->
+  <!-- </div> -->
+
+	   
+<div class="nodata hidden">
+    <h2>No WILC Transactions!</h2>
+    <p>You don't have any pending or past transactions yet. </p>
+    <img draggable="false" src="images/nodata.png" height="90px">
+</div>   
+
+
+ <div class="container hidden">
+  <div class="table-responsive">
+  <table class="table table-fixed">
+    
+	<thead>
+      <tr>
+        <th style="width: 6%"></th>
+		<th style="width: 34%"><i class="fas fa-receipt" aria-hidden="true"></i> Tx Hash</th>
+        <th style="width: 15%"><i class="fas fa-coins" aria-hidden="true"></i> Amount</th>
+        <th style="width: 20%"><i class="fas fa-angle-double-right" aria-hidden="true"></i> From</th>
+		<th style="width: 20%"><i class="fas fa-angle-double-left" aria-hidden="true"></i> To</th>
+        <th style="width: 15%"><i class="fas fa-clock" aria-hidden="true"></i> Date</th>
+      </tr>
+    </thead>
+    
+	<tbody id="wilctxnresults">  
+    </tbody>
+	
+  </table>
+ </div>
+</div>
+	
+	
+	 <!-- alert basladı -->
+	 <div class="notify"><span id="notifyType" class=""></span></div>
+     <!-- alert bitti -->
+
+    
+
+    <footer>
+	    		
+        <div class="container-md">
+		   
+		   <p class="brand">Wrapped ILCOIN Decentralized App</p>
+	       <span class="about"  data-toggle="modal" data-target="#aboutmodalerisim">About v0.0.1</span>
+	       <img draggable="false" src='images/footer.png' width='100%' height='120px'>	   
+		   <span id="status">checking network status  <i class="fas fa-spinner faa-spin animated"></i></span>
+		</div>
+    </footer>
+
+
+<script src="js/qrcode.min.js"></script>
+<script src="js/bootstrap-session-timeout.js"></script>
+<script src="js/ana.js"></script>
+
+<script>
+    var statusElem = document.getElementById('status')
+
+    setInterval(function () {
+    statusElem.className = navigator.onLine ? 'online' : 'offline';
+    statusElem.innerHTML = navigator.onLine ? '<i class="fas fa-wifi faa-pulse animated"></i>  Online' : '<i class="fas fa-exclamation-triangle faa-flash animated"></i>  Offline';  
+    }, 2000);
+	
+</script>
+
+			
+
+
+<script type="text/javascript">
+$('#send_ether_amount, #send_amount_token').keypress(function (e) {
+        var a = [];
+        if(e.charCode === 46) {
+            // if dot is the first symbol
+            if(e.target.value.length === 0 ) {
+                e.preventDefault();
+                return;
+            }
+            
+            // if there are dots already 
+            if( e.target.value.indexOf('.') !== -1 ) {
+               e.preventDefault();
+               return;
+            }   
+            
+            a.push(e.charCode);
+        }
+	})
+
+function isNumberKey(evt, element) {
+  var charCode = (evt.which) ? evt.which : event.keyCode
+  if (charCode > 31 && (charCode < 48 || charCode > 57) && !(charCode == 46 || charCode == 8))
+    return false;
+  else {
+    var len = $(element).val().length;
+    var index = $(element).val().indexOf('.');
+    if (index > 0 && charCode == 46) {
+      return false;
+    }
+    if (index > 0) {
+      var CharAfterdot = (len + 1) - index;
+      if (CharAfterdot > 9) {
+        return false;
+      }
+    }
+
+  }
+  return true;
+}
+</script>
+<script>
+    $.sessionTimeout({
+	    message: 'After a given period of inactivity or being in the background, <b>you will automatically be logged out of your wallet</b>. This is to help ensure your funds and the keys are safe and secure; especially if you are logging in on a shared computer or network. By default, auto logout is set to 1 minute. <b>You can continue to your wallet by pressing any key or moving the mouse.</b>',
+        keepAliveUrl: 'index.html',
+		logoutUrl: 'index.html',
+        redirUrl: 'index.html',
+        warnAfter: 50000,
+        redirAfter: 60000,
+		countdownBar: true,
+        countdownMessage: 'Closing wallet in {timer} seconds.'
+    });
+	document.getElementById('closesession').style.display='none';
+	document.getElementById('modalfooter').style.display='none';
+</script>
+
+<script>
+     $(document).ready(function(){	 
+     $('[data-toggle="tooltip"]').tooltip();
+	 
+		$("#show_hide_password a").on('click', function(event) {
+			event.preventDefault();
+			if($('#show_hide_password input').attr("type") == "text"){
+				$('#show_hide_password input').attr('type', 'password');
+				$('#show_hide_password i').addClass( "fa-eye-slash" );
+				$('#show_hide_password i').removeClass( "fa-eye" );
+			}else if($('#show_hide_password input').attr("type") == "password"){
+				$('#show_hide_password input').attr('type', 'text');
+				$('#show_hide_password i').removeClass( "fa-eye-slash" );
+				$('#show_hide_password i').addClass( "fa-eye" );
+			}
+		});
+	
+		$("#send_ether_amount, #send_amount_token").change(function() {
+            $(this).val(parseFloat($(this).val()).toFixed(8));
+        });
+	
+     });
+	 
+</script>
+
+<script>
+    if (typeof module === 'object') {
+        window.module = module;
+        module = undefined;
+    }	
+</script>
+
+
+</body>
+
+
+
+</html>

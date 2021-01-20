@@ -1,0 +1,53 @@
+{
+  "name": "WILC-dApp",
+  "productName": "WILC dApp",
+  "version": "0.0.1",
+  "description": "WILC Decentralized App",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
+  },
+  "build": {
+    "target": "nsis",
+    "asar": false,
+    "appId": "com.wilcdapp",
+    "mac": {
+      "category": "your.app.category.type"
+    },
+    "linux": {
+      "target": [
+        "deb"
+      ]
+    },
+    "win": {},
+    "nsis": {
+      "license": "LICENSE",
+      "perMachine": false,
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  },
+  "author": "PlusBit <info@plusbit.tech>",
+  "repository": "https://github.com/electron/electron-quick-start",
+  "keywords": [
+    "wilc",
+    "WILC-dApp"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^6.1.12",
+    "electron-builder": "^22.9.1"
+  },
+  "dependencies": {
+    "ajv": "^5.0.0",
+    "bootstrap-alerts": "^1.2.2",
+    "bootstrap-table": "^1.18.1",
+    "clipboardy": "^2.3.0",
+    "ethers": "^5.0.23",
+    "font-awesome-animation": "^0.2.1",
+    "moment": "^2.29.1",
+    "numeral": "^2.0.6"
+  }
+}
