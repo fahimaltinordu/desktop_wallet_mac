@@ -539,6 +539,14 @@ tbody tr:hover{
 		  font-size:15px;
 		  font-weight:700;
 	}
+	
+	.button88{
+		  outline:none;
+		  border-radius:7px 7px 7px 7px;
+		  font-size:19px;
+		  font-weight:700;
+		  padding: 5px 10px;
+	}
 
      .button1{
       outline:none;
@@ -591,7 +599,14 @@ tbody tr:hover{
 	
 	color: #d92b57;
 }
-
+#createwalleterror {
+	color: #d92b57;
+}
+#copypkeynotification {
+	color: #ffffff;
+	background: #05c0a5;
+	padding:5px;
+}
 
 .draggable {
     /* width: 100%; */
@@ -699,17 +714,17 @@ tbody tr:hover{
     border-bottom:1px solid #eee;
     background-color: #2a363f;
 	color: white;
-    -webkit-border-top-left-radius: 5px;
-    -webkit-border-top-right-radius: 5px;
-    -moz-border-radius-topleft: 5px;
-    -moz-border-radius-topright: 5px;
-     border-top-left-radius: 10px;
-     border-top-right-radius: 10px;
+    /* -webkit-border-top-left-radius: 5px; */
+    /* -webkit-border-top-right-radius: 5px; */
+    /* -moz-border-radius-topleft: 5px; */
+    /* -moz-border-radius-topright: 5px; */
+     /* border-top-left-radius: 10px; */
+     /* border-top-right-radius: 10px; */
  }
  
 
 .modal-content {
-    border-radius: 13px;
+    border-radius: 0;
 	user-select: none; /* supported by Chrome and Opera */
    -webkit-user-select: none; /* Safari */
    -khtml-user-select: none; /* Konqueror HTML */
@@ -1038,4 +1053,93 @@ tbody tr:hover{
     font-size: 70%;
     display: inline-block;
 	margin-bottom: 20px;
+}
+
+/* General */
+
+.progress,
+.iew_form__create_new_wallet .alert,
+.iew_form__unlock_wallet .alert,
+.iew__view_main {
+	display: none;
+}
+
+#iew_button__upload_json {
+	overflow: hidden;
+    width: 100%;
+}
+
+/* @media (min-width: 576px) { */
+	/* .modal-dialog { */
+    	/* max-width: 800px; */
+    	/* margin: 30px auto; */
+	/* } */
+/* } */
+
+
+
+/* New Wallet */
+
+.iew_form__create_new_wallet_done {
+	display: none;
+}
+
+
+
+/* Send Ether & Tokens */
+
+.iew_form__send_ether_tokens {
+	display: none;
+}
+
+.iew_form__send_ether_tokens.generate .info {
+	font-size: 13px;
+    background: #27a1b8;
+    color: #fff;
+    padding: 10px;
+    border-radius: 3px;
+    margin: 0px 0px 16px 0px;
+}
+
+.progress-bar {
+    
+    background-color: #05c0a5;
+    border-radius:0;
+}
+
+.btn-success {
+    color: #fff;
+    background-color: #05c0a5;
+    border-color: #05c0a5;
+	outline:0;
+	width: 100%;
+	font-size: large;
+	margin-top: 10px;
+}
+
+.btn-success.active.focus, .btn-success.active:focus, .btn-success.active:hover, .btn-success:active.focus, .btn-success:active:focus, .btn-success:active:hover, .open>.dropdown-toggle.btn-success.focus, .open>.dropdown-toggle.btn-success:focus, .open>.dropdown-toggle.btn-success:hover {
+    color: #fff;
+    background-color: #04c0a7;
+    border-color: #04c0a7;
+}
+.btn-success.active.focus, .btn-success.active:focus, .btn-success.active:hover, .btn-success:active.focus, .btn-success:active:focus, .btn-success:active:hover, .open>.dropdown-toggle.btn-success.focus, .open>.dropdown-toggle.btn-success:focus, .open>.dropdown-toggle.btn-success:hover {
+    color: #fff;
+    background-color: #04c0a7;
+    border-color: #04c0a7;
+}
+.btn-success.active, .btn-success:active, .open>.dropdown-toggle.btn-success {
+    color: #fff;
+    background-color: #04c0a7;
+    background-image: none;
+    border-color: #04c0a7;
+}
+.btn-success.focus, .btn-success:focus {
+    color: #fff;
+    background-color: #04c0a7;
+    border-color: #04c0a7;
+}
+.btn-success:hover {
+    color: #fff;
+    background-color: #0df5d6;
+    border-color: #0df5d6;
 }
