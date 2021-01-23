@@ -39,7 +39,8 @@
     </header>
 	
     <div class="createwalletarea">
-		   <button class="foure button77" onclick="OpenMyEtherWallet();"><b><i class="fas fa-wallet faa-horizontal animated-hover fa-2x"></i><br>Create Wallet</b></button>
+		   <!-- <button class="foure button77" onclick="OpenMyEtherWallet();"><b><i class="fas fa-wallet faa-horizontal animated-hover fa-2x"></i><br>Create Wallet</b></button> -->
+		   <button type="button" class="foure button77" data-toggle="modal" data-target="#createwalletmodal"> <b><i class="fas fa-wallet faa-horizontal animated-hover fa-2x"></i><br>Create Wallet</b> </button>
 	</div>
 	
 	
@@ -300,6 +301,65 @@
     </div>
 
 
+	<div class="modal fade" data-backdrop="static" id="createwalletmodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div style="margin-top: 25vh;" class="modal-dialog" role="document">
+            <div class="modal-content" >
+                
+				<div class="modal-header" >
+				    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="backcreatewalletbutton()"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel"><i class="fas fa-plus-square "></i><b>   Create WILC & ETH Wallet</b></h4>
+					
+                </div>
+				
+                <div class="modal-body">
+				  <form class="iew_form__create_new_wallet">
+						<p >
+							For stronger encryption choose a stronger password. <strong>You will need this password + downloaded Keystore file to unlock your wallet. You can also directly use the given Private key to unlock your wallet.</strong> Please, store your password, Keystore file and private key in a safe place, preferably an external device without access to the internet (like USB). <strong>In case of loss, we won't be able to recover your password, Keystore file or private key.</strong>
+						</p>
+
+						<div class="input-group" id="show_hide_password" style="display:table">
+							  <input style="width:90%" type="password" class="form-control" id="createwalletpass" placeholder="Password" >
+							  <div style="font-size:19px" class="input-group-addon">
+								<a href=""><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+							  </div>
+						</div>
+
+						<div class="form-group">
+							<div class="progress">
+								<div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+							</div>
+						</div>
+
+
+						<div class="form-group">
+							<button type="submit" id="btncreatenewwallet" class="foure button88" > Create New Wallet</button>
+							<p class="errorInfo text-info pull-right" id="createwalleterror"></p>
+							
+						</div>
+					</form>
+
+					<form class="iew_form__create_new_wallet_done">
+						<p >
+							A keystore file is a password-encrypted file which contains your private key on the Ethereum network. Your private key is used to sign transactions when sending crypto assets from your address. Because both the keystore file and a password are required to unlock access to your Ethereum address, this adds an additional layer of security as both file and password are required together. If someone gains a copy of your file but does not have the password, your funds are still secure, as opposed to your naked private key stored in a plain text file. Your private key is:
+						</p>
+
+						<div class="form-group" style="text-align: left;" >
+						    <p class="errorInfo text-info pull-left" id="copypkeynotification"></p>
+							<label  ><span style="background: #2a363f; padding: 4px; color: white; border-radius: 2px;" class="private-key">None</span></label>
+							<span id="copypkeyicon" class="fa-stack"  style="color:#2a363f">
+                               <i class="fa fa-square fa-stack-2x"></i>
+                               <i class="fas fa-copy fa-stack-1x fa-inverse" ></i>
+                             </span><br>
+							<a class="btn btn-success download-json-file" href="#" role="button">Download Keystore / JSON File</a>
+						</div>                        
+					</form>
+				
+                
+            </div>
+        </div>
+    </div>
+</div>
+
  
     <div class="modal fade"  id="aboutmodalerisim" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div style="margin-top: 8vh;" class="modal-dialog" role="document">
@@ -311,7 +371,7 @@
                 </div>
 				
                 <div class="modal-body">
-				  <p>A simple Ethereum Wallet based on <b>Wrapped ILCOIN (WILC)</b> ERC20 Token. Send and receive ETH and WILC with ease and security. Ethereum wallets are decrypted and raw transactions are signed locally. Raw transactions are sent directly to etherscan.io & infura.io. This open source dApp is created for the WILC community. <br><br> This wallet is for the WILC community to make life 25% easier for us token holders. Make your WILC Token experience decentralized! None of your wallet information is sent to any server. Wallet keys are kept on your local machine. Every time you want to use this wallet, you must re-use the Keystore JSON, Mnemonic Phrase or Private Key for your wallet. This wallet uses ether-js javascript library to decrypt wallets locally and also uses Infura & Etherscan providers for accessing transaction history and balances. Each time you open the wallet, you will need to reinput the Keystore JSON file with password or use the wallet's Private Key and Mnemonic Phrase. To remove confusion, this wallet will not allow you to create a new wallet. If you don't have Ethereum or WILC wallet yet, make one with a secure password at myetherwallet.com. This wallet will not save or move your wallets. Be sure to back up the Keystore JSON file!</p>
+				  <p>A simple Ethereum Wallet based on <b>Wrapped ILCOIN (WILC)</b> ERC20 Token. Send and receive ETH and WILC with ease and security. Ethereum wallets are decrypted and raw transactions are signed locally. Raw transactions are sent directly to etherscan.io & infura.io. This open source dApp is created for the WILC community. <br><br> This wallet is for the WILC community to make life 25% easier for us token holders. Make your WILC Token experience decentralized! None of your wallet information is sent to any server. Wallet keys are kept on your local machine. Every time you want to use this wallet, you must re-use the Keystore JSON, Mnemonic Phrase or Private Key for your wallet. This wallet uses ether-js javascript library to decrypt wallets locally and also uses Infura & Etherscan providers for accessing transaction history and balances. Each time you open the wallet, you will need to reinput the Keystore JSON file with password or use the wallet's Private Key and Mnemonic Phrase. If you don't have Ethereum or WILC wallet yet, make one with a secure password by clicking "Create Wallet" button. This wallet will not save or move your wallets. Be sure to back up the Keystore JSON file!</p>
                 </div>
 				
                 <div class="modal-footer">
@@ -446,6 +506,7 @@
 <script src="js/qrcode.min.js"></script>
 <script src="js/bootstrap-session-timeout.js"></script>
 <script src="js/ana.js"></script>
+<script src="js/app.js"></script>
 
 <script>
     var statusElem = document.getElementById('status')
