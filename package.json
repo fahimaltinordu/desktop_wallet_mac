@@ -1,7 +1,7 @@
 {
   "name": "WILC-dApp",
   "productName": "WILC dApp",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "WILC Decentralized App",
   "main": "main.js",
   "scripts": {
