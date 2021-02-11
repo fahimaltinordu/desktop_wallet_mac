@@ -14,7 +14,7 @@ var myWallet;
 
 var tokenBalance = 0;
 var ethBalance = 0;
-var version = "0.1.1";
+var version = "0.2.2";
 
 
 // Connecting to Infura provider (working)
@@ -551,23 +551,23 @@ function checkButton(spendable, btn) {
 
 }
 
-function GetEthGas() {
+// function GetEthGas() {
 	
-	var to = $('#send_ether_to').val();
-    var price = $("#ethgasprice").val();
-    var gaslimit = 21000;
-    var txfee = price * gaslimit;
-    $("#ethtxfee").val((txfee * 0.000000001).toFixed(8));
+	// var to = $('#send_ether_to').val();
+    // var price = $("#ethgasprice").val();
+    // var gaslimit = 21000;
+    // var txfee = price * gaslimit;
+    // $("#ethtxfee").val((txfee * 0.000000001).toFixed(8));
 	
-	var send = $("#send_ether_amount");
-	var fee = $("#ethtxfee").val();
-	var spendable = ethBalance - fee;
+	// var send = $("#send_ether_amount");
+	// var fee = $("#ethtxfee").val();
+	// var spendable = ethBalance - fee;
 	
-	checkButton(spendable, $("#sendethbutton"));
+	// checkButton(spendable, $("#sendethbutton"));
 
-    UpdateAvailableETH();
-    return false;
-}
+    // UpdateAvailableETH();
+    // return false;
+// }
 
 function GetEthAddress() {
 	 var send = $("#send_ether_amount");
@@ -596,6 +596,8 @@ function clearInputField() {
 	$("#send_ether_to").val("");
 	$("#send_amount_token").val("");
 	$("#send_to_token").val("");
+	document.getElementById("averagegas").selected = true;
+	document.getElementById("averagegas1").selected = true;
 }
 
 var lastTranx;
@@ -652,23 +654,23 @@ function SendEthereum(callback) {
   } 
 }
 
-function GetTokenGas() {
-	var send = $("#send_amount_token");
-    var price = $("#tokengasprice").val();
-    var gaslimit = 65000;
-    var txfee = price * gaslimit;
-    $("#tokentxfee").val((txfee * 0.000000001).toFixed(8));
+// function GetTokenGas() {
+	// var send = $("#send_amount_token");
+    // var price = $("#tokengasprice").val();
+    // var gaslimit = 65000;
+    // var txfee = price * gaslimit;
+    // $("#tokentxfee").val((txfee * 0.000000001).toFixed(8));
 		
-		if (ethBalance > $("#tokentxfee").val() && ethBalance > 0 && send.val() <= tokenBalance && tokenBalance >= 0 && send.val() != '' && $('#send_to_token').val() !='') {
-        $("#sendtokenbutton").prop("disabled", false);
-		} else {
-			$("#sendtokenbutton").prop("disabled", true);
-		}
+		// if (ethBalance > $("#tokentxfee").val() && ethBalance > 0 && send.val() <= tokenBalance && tokenBalance >= 0 && send.val() != '' && $('#send_to_token').val() !='') {
+        // $("#sendtokenbutton").prop("disabled", false);
+		// } else {
+			// $("#sendtokenbutton").prop("disabled", true);
+		// }
     
-	UpdateTokenFeeETH();
-    return false;
+	// UpdateTokenFeeETH();
+    // return false;
 
-}
+// }
 				
 function GetTokenAddress() {
 	 var send = $("#send_amount_token");
@@ -739,19 +741,132 @@ function SendToken(callback) {
 
 
 function UpdateAvailableETH() {
-    var fee = $("#ethtxfee").val();
-    var available = ethBalance - fee;
-    $(".ethspend").html(available.toFixed(8));
+     var apigasfee = 'https://api.etherscan.io/api?module=gastracker&action=gasoracle&apikey=KKCRSY1MNV21HCZZS6M7DQEHDU8SGA85Q3';			
+			
+	
+	fetch(apigasfee).then(res=> {
+		res.json().then (data=> {
+			
+			var lowfee = data.result.SafeGasPrice;
+			var mediumfee = data.result.ProposeGasPrice;
+			var fastfee = data.result.FastGasPrice;
+			
+			var lowqwei = ((lowfee * 0.000000001)*21000).toFixed(8);
+			var mediumqwei = ((mediumfee * 0.000000001)*21000).toFixed(8);
+			var fastqwei = ((fastfee * 0.000000001)*21000).toFixed(8);
+			
+			console.log("LOW QWEI: " + lowfee); 
+			console.log("MEDIUM QWEI: " + mediumfee); 
+			console.log("FAST QWEI: " + fastfee); 
+			
+			console.log("LOW FEE: " + lowqwei); 
+			console.log("MEDIUM FEE: " + mediumqwei); 
+			console.log("FAST FEE: " + fastqwei); 
+			
+			document.getElementById("ethgasprice").value = mediumfee;
+			document.getElementById("ethtxfee").value = mediumqwei;
+			var fee = $("#ethtxfee").val();
+			var available = ethBalance - fee;
+			$(".ethspend").html(available.toFixed(8));
+			
+			CheckETHAvailable()
+				
+			document.getElementById('selectid2').addEventListener('change', function (e) {
+			  if (e.target.value === "1") {
+				document.getElementById("ethgasprice").value = lowfee;
+				document.getElementById("ethtxfee").value = lowqwei;
+				var fee = $("#ethtxfee").val();
+				var available = ethBalance - fee;
+				$(".ethspend").html(available.toFixed(8));
+				CheckETHAvailable()				
+			  } else if (e.target.value === "2") {
+				document.getElementById("ethgasprice").value = mediumfee;
+				document.getElementById("ethtxfee").value = mediumqwei;
+				var fee = $("#ethtxfee").val();
+				var available = ethBalance - fee;
+				$(".ethspend").html(available.toFixed(8));	
+				CheckETHAvailable()
+			  } else if (e.target.value === "3") {
+				document.getElementById("ethgasprice").value = fastfee;
+				document.getElementById("ethtxfee").value = fastqwei;
+				var fee = $("#ethtxfee").val();
+				var available = ethBalance - fee;
+				$(".ethspend").html(available.toFixed(8));
+				CheckETHAvailable()				
+			  }
+			});
+		})
+	})
+	
+	
 	
 }
 
 
 function UpdateTokenFeeETH() {
-    var fee = $("#tokentxfee").val();
-    var available = ethBalance - fee;
-    $(".ethavailable").each(function(){
-      $(this).html(available.toFixed(8));
-    });
+    var apigasfee = 'https://api.etherscan.io/api?module=gastracker&action=gasoracle&apikey=KKCRSY1MNV21HCZZS6M7DQEHDU8SGA85Q3';			
+			
+	
+	fetch(apigasfee).then(res=> {
+		res.json().then (data=> {
+			
+			var lowfee = data.result.SafeGasPrice;
+			var mediumfee = data.result.ProposeGasPrice;
+			var fastfee = data.result.FastGasPrice;
+			
+			var lowqwei = ((lowfee * 0.000000001)*65000).toFixed(8);
+			var mediumqwei = ((mediumfee * 0.000000001)*65000).toFixed(8);
+			var fastqwei = ((fastfee * 0.000000001)*65000).toFixed(8);
+			
+			console.log("LOW QWEI: " + lowfee); 
+			console.log("MEDIUM QWEI: " + mediumfee); 
+			console.log("FAST QWEI: " + fastfee); 
+			
+			console.log("LOW FEE: " + lowqwei); 
+			console.log("MEDIUM FEE: " + mediumqwei); 
+			console.log("FAST FEE: " + fastqwei); 
+			
+			document.getElementById("tokengasprice").value = mediumfee;
+			document.getElementById("tokentxfee").value = mediumqwei;
+			var fee = $("#tokentxfee").val();
+			var available = ethBalance - fee;
+			$(".ethavailable").each(function(){
+			  $(this).html(available.toFixed(8));
+			});
+			CheckTokenAvailable()
+				
+			document.getElementById('selectid').addEventListener('change', function (e) {
+			  if (e.target.value === "1") {
+				document.getElementById("tokengasprice").value = lowfee;
+				document.getElementById("tokentxfee").value = lowqwei;
+				var fee = $("#tokentxfee").val();
+				var available = ethBalance - fee;
+				$(".ethavailable").each(function(){
+				  $(this).html(available.toFixed(8));
+				});
+				CheckTokenAvailable()				
+			  } else if (e.target.value === "2") {
+				document.getElementById("tokengasprice").value = mediumfee;
+				document.getElementById("tokentxfee").value = mediumqwei;
+				var fee = $("#tokentxfee").val();
+				var available = ethBalance - fee;
+				$(".ethavailable").each(function(){
+				  $(this).html(available.toFixed(8));
+				});	
+				CheckTokenAvailable()
+			  } else if (e.target.value === "3") {
+				document.getElementById("tokengasprice").value = fastfee;
+				document.getElementById("tokentxfee").value = fastqwei;
+				var fee = $("#tokentxfee").val();
+				var available = ethBalance - fee;
+				$(".ethavailable").each(function(){
+				  $(this).html(available.toFixed(8));
+				});
+				CheckTokenAvailable()				
+			  }
+			});
+		})
+	})
 }
 
 

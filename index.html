@@ -233,9 +233,17 @@
                     </div>
 					
 					<div style="text-align: right;">
-                        <button type="button" style="width:214px;font-size: 13px;font-weight: 700;" class="btn btn-default">Gas Price: <input id="ethgasprice" type="number" value="21" style="width: 50px;" onchange="GetEthGas();" min="5" max="50"> gwei</button>
-                        <button type="button" style="width:190px;font-weight: 700;font-size: 13px;" class="btn btn-default">Fee: <input id="ethtxfee" type="text" value="0.00044100"  aria-describedby="gasethHelp" readonly style="width: 80px;"> ETH</button>
-						<small id="gasethHelp" class="form-text text-muted">Gas Limit: 21000</small>
+						<select id="selectid2" class="form-select" aria-label="Default select example">
+						  <option id="lowgas1" value="1">Low</option>
+						  <option id="averagegas1" selected value="2">Medium</option>
+						  <option id="fastgas1" value="3">Fast</option>
+						</select>
+                        
+						<button type="button" style="font-size: 10px;font-weight: 700;" class="btn btn-default">Gas Price: <input id="ethgasprice" type="number" readonly style="width: 50px;" > gwei</button>
+						
+                        <button type="button" style="font-weight: 700;font-size: 10px;" class="btn btn-default">Fee: <input id="ethtxfee" type="text" aria-describedby="gaswilcHelp" readonly style="width: 80px;"> ETH</button><br>
+						
+						<small id="gaswilcHelp" class="form-text text-muted">Gas Limit is 21000</small>
                     </div>
 					
                 </div>
@@ -286,9 +294,17 @@
                     </div>
 					
 					<div style="text-align: right;">
-                        <button type="button" style="width:214px;font-size: 13px;font-weight: 700;" class="btn btn-default">Gas Price: <input id="tokengasprice" type="number" value="21" style="width: 50px;" onchange="GetTokenGas();" min="5" max="50" > gwei</button>
-                        <button type="button" style="width:190px;font-weight: 700;font-size: 13px;" class="btn btn-default">Fee: <input id="tokentxfee" type="text" aria-describedby="gaswilcHelp" value="0.00136500" readonly style="width: 80px;"> ETH</button>
-						<small id="gaswilcHelp" class="form-text text-muted">Gas Limit: 65000</small>
+						<select id="selectid" class="form-select" aria-label="Default select example">
+						  <option id="lowgas" value="1">Low</option>
+						  <option id="averagegas" selected value="2">Medium</option>
+						  <option id="fastgas" value="3">Fast</option>
+						</select>
+                        
+						<button type="button" style="font-size: 10px;font-weight: 700;" class="btn btn-default">Gas Price: <input id="tokengasprice" type="number" readonly style="width: 50px;"  > gwei</button>
+						
+                        <button type="button" style="font-weight: 700;font-size: 10px;" class="btn btn-default">Fee: <input id="tokentxfee" type="text" aria-describedby="gaswilcHelp" readonly style="width: 80px;"> ETH</button><br>
+						
+						<small id="gaswilcHelp" class="form-text text-muted">Gas Limit is 65000</small>
                     </div>
                 </div>
                 
@@ -495,7 +511,7 @@
         <div class="container-md">
 		   
 		   <p class="brand">Wrapped ILCOIN Decentralized App</p>
-	       <span class="about"  data-toggle="modal" data-target="#aboutmodalerisim">About v0.1.1</span>
+	       <span class="about"  data-toggle="modal" data-target="#aboutmodalerisim">About v0.2.2</span>
 	       <img draggable="false" src='images/footer.png' width='100%' height='120px'>	   
 		   <span id="status">checking network status  <i class="fas fa-spinner faa-spin animated"></i></span>
 		</div>
